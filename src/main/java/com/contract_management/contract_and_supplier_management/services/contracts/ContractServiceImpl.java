@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ContractServiceImpl implements ContractService {
@@ -39,7 +41,7 @@ public class ContractServiceImpl implements ContractService {
     @Transactional
     @Override
     public List<ContractResponseDTO> getAllContractsFromASupplier(String supplierId) {
-        List<Contract> contracts = supplierRepository.findById(supplierId).get().getContracts();
+        List<Contract> contracts = supplierRepository.findById(supplierId).orElseThrow(() -> new RuntimeException("supplier not found")).getContracts();
         return ContractMapper.fromContracts(contracts);
     }
 
@@ -97,5 +99,36 @@ public class ContractServiceImpl implements ContractService {
         if (endDate.isAfter(now)) {
             return true;
         } else return false;
+    }
+
+
+    @Transactional
+    @Override
+    public List<ContractResponseDTO> getContractsByStartDate(String supplierId, LocalDate startDate) {
+        return ContractMapper.fromContracts(contractRepository.findBySupplierIdAndStartDate(supplierId, startDate));
+    }
+
+    @Transactional
+    @Override
+    public List<ContractResponseDTO> getContractsByEndDate(String supplierId, LocalDate endDate) {
+        return ContractMapper.fromContracts(contractRepository.findBySupplierIdAndEndDate(supplierId, endDate));
+    }
+
+    @Transactional
+    @Override
+    public List<ContractResponseDTO> getContractsByDescriptionContaining(String supplierId, String wordKey) {
+        return ContractMapper.fromContracts(contractRepository.findBySupplierIdAndDescriptionContaining(supplierId, wordKey));
+    }
+
+    @Transactional
+    @Override
+    public List<ContractResponseDTO> getContractsByActivity(String supplierId, boolean activity) {
+        List<Contract> contracts = supplierRepository.findById(supplierId)
+                .orElseThrow(() -> new RuntimeException("supplier not found")).getContracts();
+
+        return contracts.stream()
+                .map(ContractMapper::fromContract)
+                .filter(contractResponseDTO -> contractResponseDTO.isActive() == activity)
+                .collect(Collectors.toList());
     }
 }

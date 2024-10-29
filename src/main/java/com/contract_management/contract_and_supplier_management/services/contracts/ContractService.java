@@ -20,4 +20,12 @@ public interface ContractService {
 
     void deleteContract(String contractId);
 
+    List<ContractResponseDTO> getContractsByStartDate(String supplierId, LocalDate startDate);
+
+    List<ContractResponseDTO> getContractsByEndDate(String supplierId, LocalDate endDate);
+
+    List<ContractResponseDTO> getContractsByDescriptionContaining(String supplierId, String wordKey);
+
+    List<ContractResponseDTO> getContractsByActivity(String supplierId, boolean activity);
+
 }
