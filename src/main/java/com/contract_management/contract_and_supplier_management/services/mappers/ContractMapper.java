@@ -4,6 +4,7 @@ import com.contract_management.contract_and_supplier_management.controllers.dtos
 import com.contract_management.contract_and_supplier_management.models.Contract;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ContractMapper {
         contract.setDescription(contractRegisterDTO.getDescription());
         contract.setStartDate(contractRegisterDTO.getStartDate());
         contract.setEndDate(contractRegisterDTO.getEndDate());
-        contract.setTotalValue(contractRegisterDTO.getTotalValue());
+        contract.setTotalValue(new BigDecimal(contractRegisterDTO.getTotalValue().toString()));
 
         return contract;
     }
@@ -28,7 +29,9 @@ public class ContractMapper {
             contract.setDescription(contractRegisterDTO.getDescription());
             contract.setStartDate(contractRegisterDTO.getStartDate());
             contract.setEndDate(contractRegisterDTO.getEndDate());
-            contract.setTotalValue(contractRegisterDTO.getTotalValue());
+
+            contract.setTotalValue(new BigDecimal(contractRegisterDTO.getTotalValue().toString()));
+
             contract.setSupplier(supplier);
             contracts.add(contract);
         }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/suppliers")
 public class SupplierController {
@@ -18,5 +20,16 @@ public class SupplierController {
     @ResponseStatus(HttpStatus.CREATED)
     public Supplier createSupplier(@RequestBody SupplierRegisterDTO supplierRegisterDTO) {
         return supplierService.saveSupplier(supplierRegisterDTO);
+    }
+
+    @GetMapping
+    public List<Supplier> getAllSuppliers() {
+        return supplierService.getAllSuppliers();
+    }
+
+    @GetMapping
+    @RequestMapping("/{supplierId}")
+    public Supplier getSupplierById(@PathVariable String supplierId) {
+        return supplierService.getSupplierById(supplierId);
     }
 }

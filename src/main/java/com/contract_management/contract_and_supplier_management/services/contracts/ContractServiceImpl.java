@@ -10,6 +10,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContractServiceImpl implements ContractService {
 
@@ -21,12 +23,24 @@ public class ContractServiceImpl implements ContractService {
 
     @Transactional
     @Override
-    public Contract saveContract(ContractRegisterDTO contractRegisterDTO, Long supplierId) {
+    public Contract saveContract(ContractRegisterDTO contractRegisterDTO, String supplierId) {
         Supplier supplier = supplierRepository.findById(supplierId)
                 .orElseThrow(() -> new RuntimeException("supplier not found"));
         Contract contract = ContractMapper.fromContractRegisterDTO(contractRegisterDTO);
         contract.setSupplier(supplier);
 
         return contractRepository.save(contract);
+    }
+
+    @Transactional
+    @Override
+    public List<Contract> getAllContractsFromASupplier(String supplierId) {
+        return supplierRepository.findById(supplierId).get().getContracts();
+    }
+
+    @Transactional
+    @Override
+    public Contract getContractById(String contractId) {
+        return contractRepository.findById(contractId).orElseThrow(() -> new RuntimeException("contract not found"));
     }
 }
