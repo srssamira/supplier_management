@@ -1,7 +1,7 @@
 package com.contract_management.contract_and_supplier_management.services.mappers;
 
-import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractRegisterDTO;
-import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractResponseDTO;
+import com.contract_management.contract_and_supplier_management.controllers.contracts.dtos.ContractRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.contracts.dtos.ContractResponseDTO;
 import com.contract_management.contract_and_supplier_management.models.Contract;
 import com.contract_management.contract_and_supplier_management.services.contracts.ContractServiceImpl;
 

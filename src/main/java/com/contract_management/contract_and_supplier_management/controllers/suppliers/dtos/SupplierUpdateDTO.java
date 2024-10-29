@@ -1,4 +1,4 @@
-package com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers;
+package com.contract_management.contract_and_supplier_management.controllers.suppliers.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;

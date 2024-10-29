@@ -1,8 +1,8 @@
-package com.contract_management.contract_and_supplier_management.controllers;
+package com.contract_management.contract_and_supplier_management.controllers.suppliers;
 
-import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierRegisterDTO;
-import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierResponseDTO;
-import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierUpdateDTO;
+import com.contract_management.contract_and_supplier_management.controllers.suppliers.dtos.SupplierRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.suppliers.dtos.SupplierResponseDTO;
+import com.contract_management.contract_and_supplier_management.controllers.suppliers.dtos.SupplierUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
 import com.contract_management.contract_and_supplier_management.services.suppliers.SupplierService;
 import jakarta.validation.Valid;
@@ -25,6 +25,8 @@ public class SupplierController {
         return supplierService.saveSupplier(supplierRegisterDTO);
     }
 
+
+
     @GetMapping
     public List<SupplierResponseDTO> getAllSuppliers() {
         return supplierService.getAllSuppliers();
@@ -36,11 +38,15 @@ public class SupplierController {
         return supplierService.getSupplierById(supplierId);
     }
 
+
+
     @PutMapping
     @RequestMapping("/up/{supplierId}")
     public Supplier updateSupplier(@PathVariable String supplierId, @RequestBody @Valid SupplierUpdateDTO supplierUpdateDTO) {
         return supplierService.updateSupplier(supplierUpdateDTO, supplierId);
     }
+
+
 
     @DeleteMapping
     @RequestMapping("/del/{supplierId}")

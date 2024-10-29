@@ -1,7 +1,7 @@
 package com.contract_management.contract_and_supplier_management.services.mappers;
 
-import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierRegisterDTO;
-import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierResponseDTO;
+import com.contract_management.contract_and_supplier_management.controllers.suppliers.dtos.SupplierRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.suppliers.dtos.SupplierResponseDTO;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
 
 import java.util.ArrayList;

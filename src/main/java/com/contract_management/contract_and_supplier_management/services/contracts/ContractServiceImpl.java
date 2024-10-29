@@ -1,8 +1,8 @@
 package com.contract_management.contract_and_supplier_management.services.contracts;
 
-import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractRegisterDTO;
-import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractResponseDTO;
-import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractUpdateDTO;
+import com.contract_management.contract_and_supplier_management.controllers.contracts.dtos.ContractRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.contracts.dtos.ContractResponseDTO;
+import com.contract_management.contract_and_supplier_management.controllers.contracts.dtos.ContractUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Contract;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
 import com.contract_management.contract_and_supplier_management.repositories.ContractRepository;
@@ -95,9 +95,7 @@ public class ContractServiceImpl implements ContractService {
 
     public static boolean checkActivity(LocalDate endDate) {
         LocalDate now = LocalDate.now();
-        if (endDate.isAfter(now)) {
-            return true;
-        } else return false;
+        return endDate.isAfter(now);
     }
 
 

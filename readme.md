@@ -1,100 +1,100 @@
-## API de Gerenciamento de Contratos e Fornecedores
+# Desafio: API para Gerenciamento de Contratos e Fornecedores
+A empresa XYZ precisa de uma aplicação para gerenciar contratos com seus fornecedores. Essa aplicação permitirá à equipe de gerenciamento de contratos registrar, atualizar e consultar informações sobre os fornecedores e contratos vigentes. A aplicação deve utilizar Spring Boot e Spring Data JPA e armazenar as informações em tabelas relacionais.
 
-Este documento descreve a especificação da API RESTful para gerenciar contratos e fornecedores da empresa XYZ, utilizando Spring Boot e Spring Data JPA com PostgreSQL como banco de dados.
+## Objetivos:
+-   Criar uma API RESTful com Spring Boot para gerenciar Fornecedores e Contratos.
+-   Utilizar PostgreSQL como banco de dados para armazenar os dados. 
+- Implementar relacionamentos entre as tabelas: um Fornecedor pode ter múltiplos Contratos, mas um Contrato está vinculado a apenas um Fornecedor. 
+- Validar dados de entrada usando Bean Validation. 
+- Implementar tratamento de erros, retornando mensagens amigáveis ao cliente em caso de erros de validação e erros de negócio.
 
-### Visão Geral
+## Requisitos Funcionais:
+**Fornecedor:**
+Um fornecedor deve ter um identificador, nome, CNPJ (Cadastro Nacional de Pessoa Jurídica), telefone e endereço.
+Deverá ser possível listar todos os fornecedores, buscar um fornecedor específico, criar, atualizar e remover fornecedores.
 
-A API visa atender às necessidades da equipe de gerenciamento de contratos, permitindo registrar, atualizar e consultar informações sobre fornecedores e contratos vigentes. A API deve ser robusta, segura e eficiente, com foco na usabilidade e na experiência do usuário.
+**Contrato:**
+Um contrato deve conter um identificador, número do contrato, data de início, data de término, valor total e uma descrição.
+Cada contrato é vinculado a um fornecedor e deve ser possível listar todos os contratos de um fornecedor, além de criar, atualizar e remover contratos.
 
-### Requisitos Funcionais
+## Estrutura da API:
+Abaixo está o contrato para cada endpoint da API.
 
-**1. Fornecedor:**
+### Endpoints de Fornecedor:
 
-* **Identificador:** ID único para cada fornecedor.
-* **Nome:** Nome completo do fornecedor.
-* **CNPJ:** Cadastro Nacional de Pessoa Jurídica do fornecedor.
-* **Telefone:** Número de telefone de contato.
-* **Endereço:** Endereço completo do fornecedor.
+GET /fornecedores - Retorna uma lista de todos os fornecedores cadastrados. 
 
-**Funcionalidades:**
+GET /fornecedores/{id} - Retorna os detalhes de um fornecedor específico. 
 
-* **Listar todos os fornecedores:** Retorna a lista de todos os fornecedores cadastrados.
-* **Buscar um fornecedor específico:** Retorna os detalhes de um fornecedor específico, dado o seu ID.
-* **Criar um novo fornecedor:** Permite cadastrar um novo fornecedor com os dados obrigatórios.
-* **Atualizar um fornecedor existente:** Permite modificar os dados de um fornecedor já cadastrado.
-* **Excluir um fornecedor:** Permite remover um fornecedor do sistema.
+POST /fornecedores - Cria um novo fornecedor.
 
-**2. Contrato:**
+- *Corpo da requisição:*
+*json*
+```
+{
+    "nome": "string",
+    "cnpj": "string",
+    "telefone": "string",
+    "endereco": "string"
+}
+```
+PUT /fornecedores/{id} - Atualiza os dados de um fornecedor existente.
 
-* **Identificador:** ID único para cada contrato.
-* **Número do Contrato:** Número do contrato, para referência interna.
-* **Data de Início:** Data de início da vigência do contrato.
-* **Data de Término:** Data de término da vigência do contrato.
-* **Valor Total:** Valor total do contrato em moeda local.
-* **Descrição:** Descrição detalhada do contrato.
-* **Ativo:** Flag booleano indicando se o contrato está ativo (true) ou inativo (false).
+- Corpo da requisição: Mesmo formato que o POST.
 
-**Funcionalidades:**
+DELETE /fornecedores/{id} - Exclui um fornecedor.
 
-* **Listar todos os contratos de um fornecedor:** Retorna a lista de contratos vinculados a um fornecedor específico.
-* **Buscar um contrato específico:** Retorna os detalhes de um contrato específico, dado o seu ID.
-* **Criar um novo contrato para um fornecedor:** Permite cadastrar um novo contrato para um fornecedor existente.
-* **Atualizar um contrato existente:** Permite modificar os dados de um contrato já cadastrado.
-* **Excluir um contrato:** Permite remover um contrato do sistema.
+### Endpoints de Contrato
+GET /fornecedores/{fornecedorId}/contratos - Retorna uma lista de contratos de um fornecedor específico.
+GET /contratos/{id} - Retorna os detalhes de um contrato específico.
+POST /fornecedores/{fornecedorId}/contratos - Cria um novo contrato para um fornecedor específico.
+*- Corpo da requisição:*
+*json*
 
-**3. Relacionamento:**
+```
+{
+"numeroContrato": "string",
+"dataInicio": "yyyy-MM-dd",
+"dataTermino": "yyyy-MM-dd",
+"valorTotal": "number",
+"descricao": "string",
+"ativo": boolean
+}
+```
+PUT /contratos/{id} - Atualiza os dados de um contrato existente.
+- Corpo da requisição: Mesmo formato que o POST.
 
-* Um fornecedor pode ter múltiplos contratos.
-* Um contrato é vinculado a apenas um fornecedor.
+DELETE /contratos/{id} - Exclui um contrato.
 
-### Estrutura da API
+## Regras de Negócio
+Validação de datas: A data de término do contrato deve ser maior que a data de início.
 
-**Endpoints de Fornecedor:**
+Formato do CNPJ: O CNPJ do fornecedor deve ser válido (utilizar validação específica para o Brasil).
 
-* **GET /fornecedores:** Retorna a lista de todos os fornecedores cadastrados.
-* **GET /fornecedores/{id}:** Retorna os detalhes de um fornecedor específico.
-* **POST /fornecedores:** Cria um novo fornecedor.
-* **PUT /fornecedores/{id}:** Atualiza os dados de um fornecedor existente.
-* **DELETE /fornecedores/{id}:** Exclui um fornecedor.
+Valor do contrato: O valor do contrato deve ser maior que zero.
 
-**Endpoints de Contrato:**
+## Tratamento de Erros
 
-* **GET /fornecedores/{fornecedorId}/contratos:** Retorna a lista de contratos de um fornecedor específico.
-* **GET /contratos/{id}:** Retorna os detalhes de um contrato específico.
-* **POST /fornecedores/{fornecedorId}/contratos:** Cria um novo contrato para um fornecedor específico.
-* **PUT /contratos/{id}:** Atualiza os dados de um contrato existente.
-* **DELETE /contratos/{id}:** Exclui um contrato.
+Retornar status 400 para erros de validação de dados.
 
-### Regras de Negócio
+Retornar status 404 para recursos não encontrados.
 
-* **Validação de datas:** A data de término do contrato deve ser maior que a data de início.
-* **Formato do CNPJ:** O CNPJ do fornecedor deve ser válido (utilizar validação específica para o Brasil).
-* **Valor do contrato:** O valor do contrato deve ser maior que zero.
-* **Gerenciamento de Status de Contratos:** Um novo contrato é cadastrado como "ativo" se a data de término for posterior à data atual. Caso contrário, o contrato é cadastrado como "inativo".
+Retornar status 500 para erros internos do servidor com uma mensagem genérica.
 
-### Tratamento de Erros
+### Entrega mínima
+A API deve permitir que o usuário cadastre tanto fornecedor quanto contrato. Um contrato não pode existir sem um fornecedor.
 
-* **Status 400:** Erros de validação de dados.
-* **Status 404:** Recurso não encontrado.
-* **Status 500:** Erros internos do servidor com uma mensagem genérica.
-
-### Entrega Mínima
-
-* A API deve permitir o cadastro de fornecedores e contratos.
-* Um contrato não pode existir sem um fornecedor.
-* O sistema deve gerenciar o status de contratos (ativo/inativo) de acordo com a data de término.
-
+Os contratos devem ser organizados por ativos e inativos. Sempre que um novo contrato for cadastrado é necessário fazer a verificação se está seguindo a definição de um contrato ativo. Caso contrário deve ser cadastrado como inativo.
+Definição de contrato ativo: Último contrato cadastrado com data de término no futuro.   
 ### Entrega Média
+A API deve permitir uma busca por contratos de um fornecedor por data inicial, ativo, data término ou palavra que CONTENHA na descrição.
 
-* A API deve permitir a busca de contratos de um fornecedor por data inicial, ativo, data término ou palavra que CONTENHA na descrição.
-* Exemplo de filtro: `GET /fornecedor/{fornecedorId}/contratos?dataInicial=23/08/2024`
+exemplo de como aplicar o filtro
+GET /fornecedor/{fornecedorId}/contratos?dataInicial=23/08/2024 -  Retorna todos os contratos do fornecedor especificado pelo ID com a data Inicial mencionada no parametro
+### Entrega Maxima
+A API também contará com um serviço de rotina que será executado automaticamente todo dia a cada 1 hora. Esse serviço busca no banco de dados TODOS os contratos com data de término menor do que a data atual para mudar o status de ativo=true para ativo=false.
 
-### Entrega Máxima
-
-* A API deve incluir um serviço de rotina que será executado automaticamente a cada 1 hora. Este serviço busca no banco de dados todos os contratos com data de término menor do que a data atual e altera o status de "ativo" para "inativo".
-
-### Temas para Pesquisa
-
-* **Cronjob:** Configurar tarefas agendadas com Spring para executar a rotina de atualização de status de contratos.
-* **Scheduler com Spring:** Implementar um mecanismo de agendamento de tarefas.
-* **Expressão de Cronjob:** Utilizar expressões cron para definir a frequência de execução da tarefa de atualização de status de contratos.
+Temas para pesquisa para realizar essa tarefa:
+- Cronjob
+- Scheduler com Spring
+- Expressão de Cronjob (https://pt.rakko.tools/tools/88/) 
