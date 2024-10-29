@@ -42,4 +42,11 @@ public class ContractController {
     public Contract updateContract(@PathVariable String contractId, @RequestBody ContractUpdateDTO contractUpdateDTO) {
         return contractService.updateContract(contractUpdateDTO, contractId);
     }
+
+    @DeleteMapping
+    @RequestMapping("/contracts/del/{contractsId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteContract(@PathVariable String contractsId) {
+        contractService.deleteContract(contractsId);
+    }
 }

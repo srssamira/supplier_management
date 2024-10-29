@@ -15,4 +15,6 @@ public interface ContractService {
     Contract getContractById(String contractId);
 
     Contract updateContract(ContractUpdateDTO contractUpdateDTO, String contractId);
+
+    void deleteContract(String contractId);
 }

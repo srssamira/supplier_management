@@ -80,4 +80,10 @@ public class ContractServiceImpl implements ContractService {
             contract.setTotalValue(new BigDecimal(contractUpdateDTO.getTotalValue().toString()));
         }
     }
+
+    @Transactional
+    @Override
+    public void deleteContract(String contractId) {
+        contractRepository.deleteById(contractId);
+    }
 }

@@ -15,4 +15,6 @@ public interface SupplierService {
     Supplier getSupplierById(String id);
 
     Supplier updateSupplier(SupplierUpdateDTO supplierToUpdate, String supplierId);
+
+    void deleteSupplier(String supplierId);
 }

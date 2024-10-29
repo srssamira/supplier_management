@@ -64,4 +64,10 @@ public class SupplierServiceImpl implements SupplierService {
             supplier.setCnpj(supplierUpdateDTO.getCnpj());
         }
     }
+
+    @Transactional
+    @Override
+    public void deleteSupplier(String supplierId) {
+        supplierRepository.deleteById(supplierId);
+    }
 }
