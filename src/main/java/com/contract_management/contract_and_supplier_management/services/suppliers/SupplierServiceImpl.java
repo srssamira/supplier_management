@@ -2,6 +2,7 @@ package com.contract_management.contract_and_supplier_management.services.suppli
 
 import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierRegisterDTO;
 import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierResponseDTO;
+import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
 import com.contract_management.contract_and_supplier_management.repositories.SupplierRepository;
 import com.contract_management.contract_and_supplier_management.services.mappers.SupplierMapper;
@@ -36,4 +37,31 @@ public class SupplierServiceImpl implements SupplierService {
         return supplierRepository.findById(id).orElseThrow(() -> new RuntimeException("supplier not found"));
     }
 
+    @Transactional
+    @Override
+    public Supplier updateSupplier(SupplierUpdateDTO supplierToUpdate, String supplierId) {
+        Supplier supplier = searchSupplierById(supplierId);
+        updateSupplierFields(supplier, supplierToUpdate);
+        return supplierRepository.save(supplier);
+    }
+
+    private Supplier searchSupplierById(String id) {
+        return supplierRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("supplier not found"));
+    }
+
+    private void updateSupplierFields(Supplier supplier, SupplierUpdateDTO supplierUpdateDTO) {
+        if (!supplierUpdateDTO.getName().equals(supplier.getName())) {
+            supplier.setName(supplierUpdateDTO.getName());
+        }
+        if (!supplierUpdateDTO.getAddress().equals(supplier.getAddress())) {
+            supplier.setAddress(supplierUpdateDTO.getAddress());
+        }
+        if (!supplierUpdateDTO.getPhone().equals(supplier.getPhone())) {
+            supplier.setPhone(supplierUpdateDTO.getPhone());
+        }
+        if (!supplierUpdateDTO.getCnpj().equals(supplier.getCnpj())) {
+            supplier.setCnpj(supplierUpdateDTO.getCnpj());
+        }
+    }
 }

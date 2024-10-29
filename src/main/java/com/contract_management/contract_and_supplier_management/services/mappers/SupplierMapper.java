@@ -1,6 +1,7 @@
 package com.contract_management.contract_and_supplier_management.services.mappers;
 
 import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
 
 public class SupplierMapper {

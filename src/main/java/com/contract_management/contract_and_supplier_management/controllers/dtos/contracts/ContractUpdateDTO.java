@@ -1,5 +1,6 @@
 package com.contract_management.contract_and_supplier_management.controllers.dtos.contracts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +14,11 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 public class ContractUpdateDTO {
+
+    @NotNull
+    @NotBlank
+    private String id;
+
     @NotNull(message = "number contract can't be null")
     @NotBlank(message = "number contract can't be blank")
     private String numberContract;

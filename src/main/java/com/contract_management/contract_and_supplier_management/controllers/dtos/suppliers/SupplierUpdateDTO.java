@@ -1,5 +1,6 @@
 package com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -12,6 +13,11 @@ import org.hibernate.validator.constraints.br.CNPJ;
 @Setter
 @NoArgsConstructor
 public class SupplierUpdateDTO {
+    @NotNull
+    @NotBlank
+    @JsonIgnore
+    private String id;
+
     @NotNull(message = "name can't be null")
     @NotBlank(message = "name can't be blank")
     String name;
