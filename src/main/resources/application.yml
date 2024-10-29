@@ -2,7 +2,7 @@ spring:
   application:
     name: contract_and_supplier_management
   datasource:
-    url: jdbc:postgresql://localhost:$5432/$contract_and_supplier_management
+    url: jdbc:postgresql://localhost:5432/supplier_management
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver

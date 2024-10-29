@@ -10,6 +10,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "contracts")
 public class Contract {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +19,10 @@ public class Contract {
     private String numberContract;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Number totalPrice;
+    private Number totalValue;
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id")
+    @JoinColumn(name = "supplier_id", nullable = false)
     private Supplier supplier;
 }

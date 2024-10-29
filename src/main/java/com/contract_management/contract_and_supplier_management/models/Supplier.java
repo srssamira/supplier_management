@@ -10,6 +10,8 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "suppliers")
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
