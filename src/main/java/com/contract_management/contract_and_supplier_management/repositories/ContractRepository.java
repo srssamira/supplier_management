@@ -14,6 +14,8 @@ public interface ContractRepository extends JpaRepository<Contract, String> {
 
     List<Contract> findBySupplierIdAndEndDate(String supplierId, LocalDate endDate);
 
-    List<Contract> findBySupplierIdAndDescriptionContaining(String supplierId, String word);
+    List<Contract> findBySupplierIdAndDescriptionContaining(String supplierId, String wordKey);
+
+    List<Contract> findByEndDateBefore(LocalDate now);
 
 }

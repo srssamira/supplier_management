@@ -22,6 +22,7 @@ public class Contract {
     private LocalDate endDate;
     private BigDecimal totalValue;
     private String description;
+    private boolean activity;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)

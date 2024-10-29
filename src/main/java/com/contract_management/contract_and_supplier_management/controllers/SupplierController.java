@@ -4,7 +4,6 @@ import com.contract_management.contract_and_supplier_management.controllers.dtos
 import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierResponseDTO;
 import com.contract_management.contract_and_supplier_management.controllers.dtos.suppliers.SupplierUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
-import com.contract_management.contract_and_supplier_management.services.mappers.SupplierMapper;
 import com.contract_management.contract_and_supplier_management.services.suppliers.SupplierService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

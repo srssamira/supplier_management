@@ -3,7 +3,6 @@ package com.contract_management.contract_and_supplier_management.services.mapper
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractRegisterDTO;
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractResponseDTO;
 import com.contract_management.contract_and_supplier_management.models.Contract;
-import com.contract_management.contract_and_supplier_management.models.Supplier;
 import com.contract_management.contract_and_supplier_management.services.contracts.ContractServiceImpl;
 
 import java.math.BigDecimal;
@@ -19,6 +18,7 @@ public class ContractMapper {
         contract.setStartDate(contractRegisterDTO.getStartDate());
         contract.setEndDate(contractRegisterDTO.getEndDate());
         contract.setTotalValue(new BigDecimal(contractRegisterDTO.getTotalValue().toString()));
+        contract.setActivity(ContractServiceImpl.checkActivity(contractRegisterDTO.getEndDate()));
 
         return contract;
     }
@@ -30,7 +30,7 @@ public class ContractMapper {
         contractResponseDTO.setStartDate(contract.getStartDate());
         contractResponseDTO.setEndDate(contract.getEndDate());
         contractResponseDTO.setTotalValue(new BigDecimal(contract.getTotalValue().toString()));
-        contractResponseDTO.setActive(ContractServiceImpl.checkActivity(contractResponseDTO.getEndDate()));
+        contractResponseDTO.setActive(contract.isActivity());
         return contractResponseDTO;
     }
 
@@ -41,4 +41,5 @@ public class ContractMapper {
         }
         return contractResponseDTOS;
     }
+
 }

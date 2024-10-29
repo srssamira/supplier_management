@@ -31,4 +31,6 @@ public class ContractRegisterDTO {
     @NotBlank(message = "description can't be blank")
     private String description;
 
+    private boolean activity;
+
 }
