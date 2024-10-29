@@ -1,6 +1,7 @@
 package com.contract_management.contract_and_supplier_management.controllers;
 
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractResponseDTO;
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Contract;
 import com.contract_management.contract_and_supplier_management.services.contracts.ContractService;
@@ -21,19 +22,19 @@ public class ContractController {
     @PostMapping
     @RequestMapping("/suppliers/{supplierId}/contracts")
     @ResponseStatus(HttpStatus.CREATED)
-    public Contract createContract(@PathVariable String supplierId, @RequestBody @Valid ContractRegisterDTO contractRegisterDTO) {
+    public Contract createContract(@PathVariable String supplierId, @RequestBody ContractRegisterDTO contractRegisterDTO) {
         return contractService.saveContract(contractRegisterDTO, supplierId);
     }
 
     @GetMapping
     @RequestMapping("/suppliers/{supplierId}/allContracts")
-    public List<Contract> getContracts(@PathVariable String supplierId) {
+    public List<ContractResponseDTO> getContracts(@PathVariable String supplierId) {
         return contractService.getAllContractsFromASupplier(supplierId);
     }
 
     @GetMapping
     @RequestMapping("/contracts/{contractId}")
-    public Contract getContract(@PathVariable String contractId) {
+    public ContractResponseDTO getContract(@PathVariable String contractId) {
         return contractService.getContractById(contractId);
     }
 

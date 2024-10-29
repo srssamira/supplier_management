@@ -27,14 +27,16 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Transactional
     @Override
-    public List<Supplier> getAllSuppliers() {
-        return supplierRepository.findAll();
+    public List<SupplierResponseDTO> getAllSuppliers() {
+        List<Supplier> suppliers = supplierRepository.findAll();
+        return SupplierMapper.fromSuppliers(suppliers);
     }
 
     @Transactional
     @Override
-    public Supplier getSupplierById(String id) {
-        return supplierRepository.findById(id).orElseThrow(() -> new RuntimeException("supplier not found"));
+    public SupplierResponseDTO getSupplierById(String id) {
+        Supplier supplier = supplierRepository.findById(id).orElseThrow(() -> new RuntimeException("supplier not found"));
+        return SupplierMapper.fromSupplier(supplier);
     }
 
     @Transactional

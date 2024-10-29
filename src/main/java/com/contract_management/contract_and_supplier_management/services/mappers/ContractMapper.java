@@ -1,6 +1,7 @@
 package com.contract_management.contract_and_supplier_management.services.mappers;
 
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractResponseDTO;
 import com.contract_management.contract_and_supplier_management.models.Contract;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
 
@@ -21,20 +22,21 @@ public class ContractMapper {
         return contract;
     }
 
-    public static List<Contract> fromContractRegisterDTOList(List<ContractRegisterDTO> contractRegisterDTOList, Supplier supplier) {
-        List<Contract> contracts = new ArrayList<>();
-        for (ContractRegisterDTO contractRegisterDTO : contractRegisterDTOList) {
-            Contract contract = new Contract();
-            contract.setNumberContract(contractRegisterDTO.getNumberContract());
-            contract.setDescription(contractRegisterDTO.getDescription());
-            contract.setStartDate(contractRegisterDTO.getStartDate());
-            contract.setEndDate(contractRegisterDTO.getEndDate());
+    public static ContractResponseDTO fromContract(Contract contract) {
+        ContractResponseDTO contractResponseDTO = new ContractResponseDTO();
+        contractResponseDTO.setNumberContract(contract.getNumberContract());
+        contractResponseDTO.setDescription(contract.getDescription());
+        contractResponseDTO.setStartDate(contract.getStartDate());
+        contractResponseDTO.setEndDate(contract.getEndDate());
+        contractResponseDTO.setTotalValue(new BigDecimal(contract.getTotalValue().toString()));
+        return contractResponseDTO;
+    }
 
-            contract.setTotalValue(new BigDecimal(contractRegisterDTO.getTotalValue().toString()));
-
-            contract.setSupplier(supplier);
-            contracts.add(contract);
+    public static List<ContractResponseDTO> fromContracts(List<Contract> contracts) {
+        List<ContractResponseDTO> contractResponseDTOS = new ArrayList<>();
+        for (Contract contract : contracts) {
+            contractResponseDTOS.add(fromContract(contract));
         }
-        return contracts;
+        return contractResponseDTOS;
     }
 }

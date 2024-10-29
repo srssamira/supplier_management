@@ -1,6 +1,7 @@
 package com.contract_management.contract_and_supplier_management.services.contracts;
 
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractResponseDTO;
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Contract;
 
@@ -10,9 +11,9 @@ public interface ContractService {
 
     Contract saveContract(ContractRegisterDTO contractRegisterDTO, String supplierId);
 
-    List<Contract> getAllContractsFromASupplier(String supplierId);
+    List<ContractResponseDTO> getAllContractsFromASupplier(String supplierId);
 
-    Contract getContractById(String contractId);
+    ContractResponseDTO getContractById(String contractId);
 
     Contract updateContract(ContractUpdateDTO contractUpdateDTO, String contractId);
 

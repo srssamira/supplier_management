@@ -10,9 +10,9 @@ import java.util.List;
 public interface SupplierService {
     Supplier saveSupplier(SupplierRegisterDTO supplier);
 
-    List<Supplier> getAllSuppliers();
+    List<SupplierResponseDTO> getAllSuppliers();
 
-    Supplier getSupplierById(String id);
+    SupplierResponseDTO getSupplierById(String id);
 
     Supplier updateSupplier(SupplierUpdateDTO supplierToUpdate, String supplierId);
 

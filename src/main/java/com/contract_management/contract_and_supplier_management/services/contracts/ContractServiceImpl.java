@@ -1,6 +1,7 @@
 package com.contract_management.contract_and_supplier_management.services.contracts;
 
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractRegisterDTO;
+import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractResponseDTO;
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Contract;
 import com.contract_management.contract_and_supplier_management.models.Supplier;
@@ -36,14 +37,17 @@ public class ContractServiceImpl implements ContractService {
 
     @Transactional
     @Override
-    public List<Contract> getAllContractsFromASupplier(String supplierId) {
-        return supplierRepository.findById(supplierId).get().getContracts();
+    public List<ContractResponseDTO> getAllContractsFromASupplier(String supplierId) {
+        List<Contract> contracts = supplierRepository.findById(supplierId).get().getContracts();
+        return ContractMapper.fromContracts(contracts);
     }
 
     @Transactional
     @Override
-    public Contract getContractById(String contractId) {
-        return contractRepository.findById(contractId).orElseThrow(() -> new RuntimeException("contract not found"));
+    public ContractResponseDTO getContractById(String contractId) {
+        Contract contract = contractRepository.findById(contractId).orElseThrow(() -> new RuntimeException("contract not found"));
+        return ContractMapper.fromContract(contract);
+
     }
 
     @Transactional
