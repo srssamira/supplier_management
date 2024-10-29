@@ -22,7 +22,7 @@ public class ContractController {
     @PostMapping
     @RequestMapping("/suppliers/{supplierId}/contracts")
     @ResponseStatus(HttpStatus.CREATED)
-    public Contract createContract(@PathVariable String supplierId, @RequestBody ContractRegisterDTO contractRegisterDTO) {
+    public Contract createContract(@PathVariable String supplierId, @RequestBody @Valid ContractRegisterDTO contractRegisterDTO) {
         return contractService.saveContract(contractRegisterDTO, supplierId);
     }
 
@@ -40,7 +40,7 @@ public class ContractController {
 
     @PutMapping
     @RequestMapping("/contracts/up/{contractId}")
-    public Contract updateContract(@PathVariable String contractId, @RequestBody ContractUpdateDTO contractUpdateDTO) {
+    public Contract updateContract(@PathVariable String contractId, @RequestBody @Valid ContractUpdateDTO contractUpdateDTO) {
         return contractService.updateContract(contractUpdateDTO, contractId);
     }
 

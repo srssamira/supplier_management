@@ -39,7 +39,7 @@ public class SupplierController {
 
     @PutMapping
     @RequestMapping("/up/{supplierId}")
-    public Supplier updateSupplier(@PathVariable String supplierId, @RequestBody SupplierUpdateDTO supplierUpdateDTO) {
+    public Supplier updateSupplier(@PathVariable String supplierId, @RequestBody @Valid SupplierUpdateDTO supplierUpdateDTO) {
         return supplierService.updateSupplier(supplierUpdateDTO, supplierId);
     }
 

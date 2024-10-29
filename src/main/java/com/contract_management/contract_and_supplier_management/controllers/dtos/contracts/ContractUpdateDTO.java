@@ -1,5 +1,6 @@
 package com.contract_management.contract_and_supplier_management.controllers.dtos.contracts;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -25,6 +26,7 @@ public class ContractUpdateDTO {
 
     @NotNull(message = "start date can't be null")
     @NotBlank(message = "start date can't be blank")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate startDate;
 
     @NotNull(message = "end date can't be null")
@@ -38,5 +40,4 @@ public class ContractUpdateDTO {
     @NotBlank(message = "description can't be blank")
     private String description;
 
-    private boolean active;
 }

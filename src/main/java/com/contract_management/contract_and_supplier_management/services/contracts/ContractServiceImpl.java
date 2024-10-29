@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -80,7 +81,7 @@ public class ContractServiceImpl implements ContractService {
             contract.setEndDate(contractUpdateDTO.getEndDate());
         }
 
-        if (contract.getTotalValue() != contractUpdateDTO.getTotalValue()) {
+        if (!contract.getTotalValue().equals(contractUpdateDTO.getTotalValue())) {
             contract.setTotalValue(new BigDecimal(contractUpdateDTO.getTotalValue().toString()));
         }
     }
@@ -89,5 +90,12 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public void deleteContract(String contractId) {
         contractRepository.deleteById(contractId);
+    }
+
+    public static boolean checkActivity(LocalDate endDate) {
+        LocalDate now = LocalDate.now();
+        if (endDate.isAfter(now)) {
+            return true;
+        } else return false;
     }
 }

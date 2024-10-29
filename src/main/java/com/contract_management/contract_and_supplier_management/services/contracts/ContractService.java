@@ -5,6 +5,7 @@ import com.contract_management.contract_and_supplier_management.controllers.dtos
 import com.contract_management.contract_and_supplier_management.controllers.dtos.contracts.ContractUpdateDTO;
 import com.contract_management.contract_and_supplier_management.models.Contract;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ContractService {
@@ -18,4 +19,5 @@ public interface ContractService {
     Contract updateContract(ContractUpdateDTO contractUpdateDTO, String contractId);
 
     void deleteContract(String contractId);
+
 }
