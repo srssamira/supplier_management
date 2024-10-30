@@ -82,7 +82,7 @@ public class ContractServiceImpl implements ContractService {
             contract.setTotalValue(new BigDecimal(contractUpdateDTO.getTotalValue().toString()));
 
         if (contract.isActivity() != contractUpdateDTO.isActivity())
-            contract.setActivity(checkActivity(contractUpdateDTO.getEndDate()));
+            contract.setActivity(checkEndDate(contractUpdateDTO.getEndDate(), contractUpdateDTO.getStartDate()));
     }
 
     @Transactional
@@ -91,9 +91,13 @@ public class ContractServiceImpl implements ContractService {
         contractRepository.deleteById(contractId);
     }
 
-    public static boolean checkActivity(LocalDate endDate) {
+    public static boolean checkEndDate(LocalDate endDate, LocalDate startDate) {
         LocalDate now = LocalDate.now();
-        return endDate.isAfter(now);
+        if (endDate.isAfter(now))
+            return true;
+        if (endDate.isBefore(startDate))
+            throw new IllegalArgumentException("end date is before start date");
+        return false;
     }
 
 
