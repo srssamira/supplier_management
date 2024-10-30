@@ -21,8 +21,7 @@ public class ContractController {
 
 
 
-    @PostMapping
-    @RequestMapping("/suppliers/{supplierId}/contracts")
+    @PostMapping("/suppliers/{supplierId}/contracts")
     @ResponseStatus(HttpStatus.CREATED)
     public Contract createContract(@PathVariable String supplierId, @RequestBody @Valid ContractRegisterDTO contractRegisterDTO) {
         return contractService.saveContract(contractRegisterDTO, supplierId);
@@ -30,54 +29,46 @@ public class ContractController {
 
 
 
-    @GetMapping
-    @RequestMapping("/suppliers/{supplierId}/allContracts")
+    @GetMapping("/suppliers/{supplierId}/contracts")
     public List<ContractResponseDTO> getContracts(@PathVariable String supplierId) {
         return contractService.getAllContractsFromASupplier(supplierId);
     }
 
-    @GetMapping
-    @RequestMapping("/contracts/{contractId}")
+    @GetMapping("/contracts/{contractId}")
     public ContractResponseDTO getContract(@PathVariable String contractId) {
         return contractService.getContractById(contractId);
     }
 
-    @GetMapping
-    @RequestMapping("/suppliers/{supplierId}/contractsByStartDate")
+    @GetMapping("/suppliers/{supplierId}/contractsByStartDate")
     public List<ContractResponseDTO> getContractsByStartDate(@PathVariable String supplierId, @RequestParam LocalDate startDate) {
         return contractService.getContractsByStartDate(supplierId, startDate);
     }
 
-    @GetMapping
-    @RequestMapping("/suppliers/{supplierId}/contractsByEndDate")
+    @GetMapping("/suppliers/{supplierId}/contractsByEndDate")
     public List<ContractResponseDTO> getContractsByEndDate(@PathVariable String supplierId, @RequestParam LocalDate endDate) {
         return contractService.getContractsByEndDate(supplierId, endDate);
     }
 
-    @GetMapping
-    @RequestMapping("/suppliers/{supplierId}/contractsByWordsInDescription")
+    @GetMapping("/suppliers/{supplierId}/contractsByWordKey")
     public List<ContractResponseDTO> getContractsByWordInDescription(@PathVariable String supplierId, @RequestParam String wordKey) {
         return contractService.getContractsByDescriptionContaining(supplierId, wordKey);
     }
 
-    @GetMapping
-    @RequestMapping("/suppliers/{supplierId}/contractsByActivity")
+    @GetMapping("/suppliers/{supplierId}/contractsByActivity")
     public List<ContractResponseDTO> getContractsByActivity(@PathVariable String supplierId, @RequestParam boolean activity) {
         return contractService.getContractsByActivity(supplierId, activity);
     }
 
 
 
-    @PutMapping
-    @RequestMapping("/contracts/up/{contractId}")
+    @PutMapping("/contracts/{contractId}")
     public Contract updateContract(@PathVariable String contractId, @RequestBody @Valid ContractUpdateDTO contractUpdateDTO) {
         return contractService.updateContract(contractUpdateDTO, contractId);
     }
 
 
 
-    @DeleteMapping
-    @RequestMapping("/contracts/del/{contractsId}")
+    @DeleteMapping("/contracts/{contractsId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteContract(@PathVariable String contractsId) {
         contractService.deleteContract(contractsId);

@@ -95,8 +95,9 @@ public class ContractServiceImpl implements ContractService {
         LocalDate now = LocalDate.now();
         if (endDate.isAfter(now))
             return true;
+
         if (endDate.isBefore(startDate))
-            throw new IllegalArgumentException("end date is before start date");
+            throw new RuntimeException("end date is before start date");
         return false;
     }
 

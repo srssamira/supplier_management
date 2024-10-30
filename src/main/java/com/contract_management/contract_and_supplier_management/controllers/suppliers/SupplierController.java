@@ -32,24 +32,21 @@ public class SupplierController {
         return supplierService.getAllSuppliers();
     }
 
-    @GetMapping
-    @RequestMapping("/{supplierId}")
+    @GetMapping("/{supplierId}")
     public SupplierResponseDTO getSupplierById(@PathVariable String supplierId) {
         return supplierService.getSupplierById(supplierId);
     }
 
 
 
-    @PutMapping
-    @RequestMapping("/up/{supplierId}")
+    @PutMapping("/{supplierId}")
     public Supplier updateSupplier(@PathVariable String supplierId, @RequestBody @Valid SupplierUpdateDTO supplierUpdateDTO) {
         return supplierService.updateSupplier(supplierUpdateDTO, supplierId);
     }
 
 
 
-    @DeleteMapping
-    @RequestMapping("/del/{supplierId}")
+    @DeleteMapping("/{supplierId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteSupplier(@PathVariable String supplierId) {
         supplierService.deleteSupplier(supplierId);
