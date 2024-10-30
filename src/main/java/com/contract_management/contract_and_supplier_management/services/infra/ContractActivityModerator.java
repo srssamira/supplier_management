@@ -19,12 +19,14 @@ public class ContractActivityModerator {
     @Transactional
     @Scheduled(cron = "0 0 * * * ?")
     public void updateContractActivity() {
-        LocalDate now = LocalDate.now();
 
-        List<Contract> inactiveContractrs = contractRepository.findByEndDateBefore(now);
-        for (Contract contract : inactiveContractrs) {
-            contract.setActivity(false);
-            contractRepository.save(contract);
-        }
+            LocalDate now = LocalDate.now();
+
+            List<Contract> inactiveContractrs = contractRepository.findByEndDateBefore(now);
+            for (Contract contract : inactiveContractrs) {
+                contract.setActivity(false);
+                contractRepository.save(contract);
+            }
+
     }
 }

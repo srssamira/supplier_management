@@ -66,25 +66,23 @@ public class ContractServiceImpl implements ContractService {
     }
 
     private void updateContractFields(Contract contract, ContractUpdateDTO contractUpdateDTO) {
-        if (!contract.getNumberContract().equals(contractUpdateDTO.getNumberContract())) {
+        if (!contract.getNumberContract().equals(contractUpdateDTO.getNumberContract()))
             contract.setNumberContract(contractUpdateDTO.getNumberContract());
-        }
 
-        if (!contract.getDescription().equals(contractUpdateDTO.getDescription())) {
+        if (!contract.getDescription().equals(contractUpdateDTO.getDescription()))
             contract.setDescription(contractUpdateDTO.getDescription());
-        }
 
-        if (!contract.getStartDate().equals(contractUpdateDTO.getStartDate())) {
+        if (!contract.getStartDate().equals(contractUpdateDTO.getStartDate()))
             contract.setStartDate(contractUpdateDTO.getStartDate());
-        }
 
-        if (!contract.getEndDate().equals(contractUpdateDTO.getEndDate())) {
+        if (!contract.getEndDate().equals(contractUpdateDTO.getEndDate()))
             contract.setEndDate(contractUpdateDTO.getEndDate());
-        }
 
-        if (!contract.getTotalValue().equals(contractUpdateDTO.getTotalValue())) {
+        if (!contract.getTotalValue().equals(contractUpdateDTO.getTotalValue()))
             contract.setTotalValue(new BigDecimal(contractUpdateDTO.getTotalValue().toString()));
-        }
+
+        if (contract.isActivity() != contractUpdateDTO.isActivity())
+            contract.setActivity(checkActivity(contractUpdateDTO.getEndDate()));
     }
 
     @Transactional

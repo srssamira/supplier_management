@@ -18,7 +18,7 @@ public class ContractMapper {
         contract.setStartDate(contractRegisterDTO.getStartDate());
         contract.setEndDate(contractRegisterDTO.getEndDate());
         contract.setTotalValue(new BigDecimal(contractRegisterDTO.getTotalValue().toString()));
-        contract.setActivity(ContractServiceImpl.checkActivity(contractRegisterDTO.getEndDate()));
+        ContractServiceImpl.checkActivity(contractRegisterDTO.getEndDate());
 
         return contract;
     }

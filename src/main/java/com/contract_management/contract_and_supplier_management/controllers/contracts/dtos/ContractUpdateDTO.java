@@ -23,11 +23,9 @@ public class ContractUpdateDTO {
     private String numberContract;
 
     @NotNull(message = "start date can't be null")
-    @NotBlank(message = "start date can't be blank")
     private LocalDate startDate;
 
     @NotNull(message = "end date can't be null")
-    @NotBlank(message = "end date can't be blank")
     private LocalDate endDate;
 
     @Min(value = 1)
@@ -36,5 +34,7 @@ public class ContractUpdateDTO {
     @NotNull(message = "description can't be null")
     @NotBlank(message = "description can't be blank")
     private String description;
+
+    private boolean activity;
 
 }
